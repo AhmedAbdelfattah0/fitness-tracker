@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.css';
 
-/* html, body { height: 100%; } */
-body { margin: 10; padding: 10px; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { height: 100%;  font-family: Roboto, "Helvetica Neue",   sans-serif;}
+body { margin: 0;  }
 .bg-img{
     background-image: url(../src/assets/imges/1571485195_164961-1536x864.jpg);
     background-repeat: no-repeat;

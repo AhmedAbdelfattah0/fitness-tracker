@@ -1,1 +1,52 @@
-<p>login works!</p>
+<section class="login-form card col-4 offset-4 "     > 
+    <form  fxLayoutGap="10px"  #f="ngForm" (ngSubmit)="onSubmit(f)" class="card-body">
+        <mat-form-field class="col-10 offset-1 ">
+            <input
+             type="email" 
+             matInput 
+             placeholder="Your Email" 
+             name="email" 
+             ngModel 
+             email 
+             required 
+             #emailInput="ngModel">
+            <mat-error *ngIf="emailInput.hasError('required')">
+                Field must not be empty
+            </mat-error>
+
+            <mat-error *ngIf="emailInput.invalid && !emailInput.hasError('required')">
+                Email is invalid.
+            </mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field hint-lable="shold be at least 6 characters long" class="col-10 offset-1 ">
+            <input
+            type="password"
+            matInput
+            placeholder="YourPassword"
+            name="password"
+            ngModel
+            minlength="6"
+            required
+            #passwordInput="ngModel"
+            >
+            <mat-hint align="end"> {{passwordInput.value?.length}} /6</mat-hint>
+            <mat-error *ngIf="passwordInput.value?.length < 6" > {{passwordInput.value?.length}} /6</mat-error>
+            
+            <mat-error *ngIf="passwordInput.invalid && !passwordInput.hasError('required')">
+                Password is invalid.
+            </mat-error>
+            <mat-error *ngIf="passwordInput.hasError('required')">
+                Password must not be empty
+            </mat-error>
+        </mat-form-field>
+          
+ <div class="text-center">
+
+    <button type="submit" class="col-5  " mat-raised-button color="primary" [disabled]="f.invalid">Submit</button>
+</div>
+     </form>
+
+
+</section>

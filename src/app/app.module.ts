@@ -35,7 +35,7 @@ import { FormsModule } from '@angular/forms';
   ],
   providers: [
     Location,
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent]
 })

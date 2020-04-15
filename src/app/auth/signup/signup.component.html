@@ -1,4 +1,4 @@
-<section class="signup-form card col-4 offset-4 "     > 
+<!-- <section class="signup-form card col-4 offset-4 "     > 
     <form  fxLayoutGap="10px"  #f="ngForm" (ngSubmit)="onSubmit(f)" class="card-body">
         <mat-form-field class="col-10 offset-1 ">
             <input
@@ -62,4 +62,51 @@
      </form>
 
 
+</section> -->
+
+
+<section class="signup-form col-5 offset-4">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <mat-card>
+            <mat-card-title>ٍSign up</mat-card-title>
+            <mat-card-content>
+                <mat-form-field class="col-10">
+                    <input type="email" matInput placeholder="Your Email" name="email" ngModel email required
+                        #emailInput="ngModel">
+                    <mat-error *ngIf="emailInput.hasError('required')">
+                        Field must not be empty
+                    </mat-error>
+
+                    <mat-error *ngIf="emailInput.invalid && !emailInput.hasError('required')">
+                        Email is invalid.
+                    </mat-error>
+
+                </mat-form-field>
+
+                <mat-form-field hint-lable="shold be at least 6 characters long" class="col-10">
+                    <input type="password" matInput placeholder="YourPassword" name="password" ngModel minlength="6"
+                        required #passwordInput="ngModel">
+                    <mat-hint align="end"> {{passwordInput.value?.length}} /6</mat-hint>
+                    <mat-error *ngIf="passwordInput.value?.length < 6"> {{passwordInput.value?.length}} /6</mat-error>
+
+                    <mat-error *ngIf="passwordInput.invalid && !passwordInput.hasError('required')">
+                        Password is invalid.
+                    </mat-error>
+                    <mat-error *ngIf="passwordInput.hasError('required')">
+                        Password must not be empty
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-10">
+                    <input matInput [matDatepicker]="picker" placeholder="Your birthdate" name="birthdate" ngModel
+                        [max]="maxDate" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <mat-checkbox ngModel name="agree" required color="primary" class="col-10">Agree to Terms and Conditions
+                </mat-checkbox>
+            </mat-card-content>
+            <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Submit</button>
+
+        </mat-card>
+    </form>
 </section>

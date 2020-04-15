@@ -1,0 +1,18 @@
+  <mat-toolbar color='primary'>
+            <div>
+                <button mat-icon-button (click)="onSidenavToggle()">
+                    <mat-icon>menu</mat-icon>
+                </button>
+            </div>
+            <div>Logo</div>
+             <div class="width float-right">
+
+                
+                <button  class=" float-right" *ngIf="!isAuth" mat-button mat-menu-item routerLink="signup" [routerLinkActive]="['active']">Sign Up</button>
+                <button class=" float-right" *ngIf="!isAuth" mat-button mat-menu-item routerLink="login" [routerLinkActive]="['active']">Login</button>
+                <button class=" float-right" *ngIf="isAuth"  mat-button mat-menu-item routerLink="training" [routerLinkActive]="['active']">Training</button>
+                <button class=" float-right" *ngIf="isAuth" (click)="logout()" mat-button mat-menu-item >Logout</button>
+             
+            </div>
+
+        </mat-toolbar>

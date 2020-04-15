@@ -3,12 +3,3 @@
 
 html, body { height: 100%;  font-family: Roboto, "Helvetica Neue",   sans-serif;}
 body { margin: 0;  }
-.bg-img{
-    background-image: url(../src/assets/imges/1571485195_164961-1536x864.jpg);
-    background-repeat: no-repeat;
-    background-size: auto;
-    -ms-background-size: cover;
-    -o-background-size: cover;
-    -moz-background-size: cover;
-    -webkit-background-size: cover;
-}

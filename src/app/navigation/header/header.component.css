@@ -1,0 +1,17 @@
+
+a{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+a:hover, a:active,.active{
+    color: lightgray;
+}
+.nav-items{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.width{
+    width: 100%;
+}

@@ -11,6 +11,11 @@ import { MatDatepickerModule  } from '@angular/material/datepicker';
  import {  MatSidenavModule } from '@angular/material/sidenav';
  import {  MatListModule } from '@angular/material/list';
  import {  MatToolbarModule } from '@angular/material/toolbar';
+ import {  MatTabsModule } from '@angular/material/tabs';
+ import {  MatCardModule } from '@angular/material/card';
+ import {  MatSelectModule } from '@angular/material/select';
+ import {  MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+ import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
      imports:[
@@ -26,6 +31,13 @@ import { MatDatepickerModule  } from '@angular/material/datepicker';
         MatSidenavModule,
         MatToolbarModule,
         MatListModule,
+        MatTabsModule,
+        MatCardModule,
+        MatSelectModule,
+        MatProgressSpinnerModule,
+        MatDialogModule,
+
+
     ],
 
      exports:[
@@ -41,6 +53,13 @@ import { MatDatepickerModule  } from '@angular/material/datepicker';
         MatToolbarModule,
         MatSidenavModule,
         MatListModule,
+        MatTabsModule,
+        MatSelectModule,
+        MatCardModule,
+        MatProgressSpinnerModule,
+        MatDialogModule,
+
+
 
     ]
 })

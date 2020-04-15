@@ -10,21 +10,15 @@ mat-sidenav{
     padding: 10px;
 }
 
-a{
-    text-decoration: none;
-    color: #ffffff;
-}
 
-a:hover, a:active,.active{
-    color: lightgray;
+.bg-img{
+    background: url(../assets/imges/1571485195_164961-1536x864.jpg) ; 
+    background-repeat: no-repeat;
+    background-size: auto;
+    -ms-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+   opacity: 0.5;
 }
-
-.nav-items{
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
-.nav-caption{
-    display: inline-block;
-    padding-left: 6px;
-}
+ 

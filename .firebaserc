@@ -1,0 +1,18 @@
+{
+  "targets": {
+    "fir-demo-d62f8": {
+      "hosting": {
+        "fitness-tracker": [
+          "fir-demo-d62f8"
+        ]
+      }
+    },
+    "fitness-tracker-162cc": {
+      "hosting": {
+        "fitness-tracker": [
+          "fitness-tracker-162cc"
+        ]
+      }
+    }
+  }
+}

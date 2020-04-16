@@ -1,6 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { StopTrainingComponent } from './stop-training/stop-training.component';
+import { Exercise } from '../exercise.model';
+import { TrainingService } from '../training.service';
 
 @Component({
   selector: 'app-current-training',
@@ -9,32 +11,31 @@ import { StopTrainingComponent } from './stop-training/stop-training.component';
 })
 export class CurrentTrainingComponent implements OnInit {
   @Output('startTraining') startTraining = new EventEmitter();
-  progress = 0;
+   progress = 0;
   timer: number;
-
+  currentRunningTraining:Exercise
   constructor(
     private dialog: MatDialog,
-
+    private trainingService: TrainingService
   ) { }
 
   ngOnInit(): void {
-    this.timer = +(setInterval(() => {
-      this.progress = this.progress + 5;
-
-      if (this.progress == 100)
-        clearInterval(this.timer)
-    }, 1000))
-    // this.startOrResumeTraining()
+ 
+    this.startOrResumeTraining()
   }
-  
-  // startOrResumeTraining() {
-  //   this.timer = +(setInterval(() => {
-  //     this.progress = this.progress + 5;
 
-  //     if (this.progress == 100)
-  //       clearInterval(this.timer)
-  //   }, 1000))
-  // }
+  startOrResumeTraining() {
+    const steps = this.trainingService.getRunningExercise().duration / 100 * 1000
+
+    this.timer = +(setInterval(() => {
+      this.progress = this.progress + 1;
+
+      if (this.progress == 100){
+        this.trainingService.completeExercise()
+        clearInterval(this.timer)
+      }
+    }, steps))
+  }
 
   onStop() {
     clearInterval(this.timer)
@@ -46,10 +47,10 @@ export class CurrentTrainingComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(results => {
       if (results == true) {
-        return this.startTraining.emit();
+        return this.trainingService.cancelExercise(this.progress)
 
       } else {
-        return this.ngOnInit()
+        return this.startOrResumeTraining()
       }
     })
   }

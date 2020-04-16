@@ -1,9 +1,12 @@
 <section class="current-training">
-    <div class="col-2 offset-5">
+    <div class="col-4 offset-5">
+        <div class="col-1 offset-1">
 
-        <mat-progress-spinner mode="determinate" [value]="progress"></mat-progress-spinner>
-        <h1> {{progress}} % </h1>
-        <P>Keep on going, you can do it!</P>
-        <button type="submit" mat-raised-button color="accent" (click)="onStop()">Stop </button>
+            <mat-progress-spinner mode="determinate" [value]="progress"></mat-progress-spinner>
+        </div>
+    
     </div>
+    <h1>Your current progress {{progress}}  </h1>
+    <P>Keep on going, you can do it!</P>
+    <button type="submit" mat-raised-button color="accent" (click)="onStop()">Stop </button>
 </section>

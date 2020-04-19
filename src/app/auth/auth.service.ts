@@ -3,49 +3,61 @@ import { User } from './user.model';
 import { AuthData } from './auth-data.model';
 import { Subject } from "rxjs";
 import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { TrainingService } from '../training/training.service';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   authChange = new Subject<boolean>();
-  private user: User
-  constructor(private router:Router) { }
+  private isAuthenticated: boolean = false;
+  constructor(
+    private router: Router,
+    private auth: AngularFireAuth,
+    private traningService: TrainingService
+
+  ) { }
+
+
+  initAuthListener() {
+    this.auth.authState.subscribe(user => {
+      if (user) {
+        this.isAuthenticated = true
+
+        this.authChange.next(true);
+        this.router.navigate(['training'])
+      } else {
+        this.traningService.cancelSubscriptions()
+        this.authChange.next(false);
+        this.router.navigate(['login'])
+        this.isAuthenticated = false;
+      }
+    })
+  }
   registerUser(authData: AuthData) {
-    this.user = {
-      email: authData.email,
-      userId: Math.round(Math.random() * 10000).toString()
-    }
-    this.authSuccessfully()
+    this.auth.createUserWithEmailAndPassword(authData.email, authData.password)
 
   }
 
   login(authData: AuthData) {
 
-    this.user = {
-      email: authData.email,
-      userId: Math.round(Math.random() * 10000).toString()
-    }
-    this.authSuccessfully()
+    this.auth.signInWithEmailAndPassword(authData.email, authData.password)
 
   }
 
   logout() {
-    this.user = null;
-    this.authChange.next(false);
-    this.router.navigate(['login'])
+    
+     this.auth.signOut()
 
   }
 
-  getUser() {
-    return { ...this.user }
-  }
+  // getUser() {
+  //   return { ...this.user }
+  // }
 
   isAuth() {
-    return this.user != null
+    return this.isAuthenticated;
   }
 
-  private authSuccessfully(){
-    this.authChange.next(true);
-    this.router.navigate(['training'])
-  }
+ 
 }

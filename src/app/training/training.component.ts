@@ -27,7 +27,7 @@ export class TrainingComponent implements OnInit, OnDestroy {
   }
   getRunningExercise(trainingId) {
 
-    this.currentExercise = this.trainingService.getAvailableExercises().find(ex => ex.id = trainingId)
+    // this.currentExercise = this.trainingService.getAvailableExercises().find(ex => ex.id = trainingId)
   }
 
   ngOnDestroy(): void {

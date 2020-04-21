@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { UiService } from '../sheard/ui.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +17,9 @@ export class TrainingService {
   private fbSubs: Subscription[] = []
   private runningExercise: Exercise;
   constructor(
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private uiService: UiService
+
 
   ) { }
   fitchAvailableExercises() {
@@ -35,9 +38,14 @@ export class TrainingService {
             }
           );
         })).subscribe((exercises: Exercise[]) => {
-
+          this.uiService.loadingStateChanged.next(false)
           this.availableExercises = exercises
           this.exercisesChanged.next([...this.availableExercises])
+        }, error => {
+          this.uiService.loadingStateChanged.next(false)
+          this.exercisesChanged.next(null)
+
+          this.uiService.showSnackBar('Fetching Trainings fails, please try agin later', "Close", 4000)
         }))
   }
 
@@ -47,6 +55,9 @@ export class TrainingService {
       ex => ex.id === selectedId
     );
     this.exerciseChanged.next({ ...this.runningExercise });
+    this.uiService.showSnackBar('New Training Started', 'Close', 4000)
+
+
   }
 
   completeExercise() {
@@ -57,6 +68,8 @@ export class TrainingService {
     });
     this.runningExercise = null;
     this.exerciseChanged.next(null);
+    this.uiService.showSnackBar('Training Completed', 'Close', 4000)
+
   }
 
   cancelExercise(progress: number) {
@@ -70,6 +83,8 @@ export class TrainingService {
     });
     this.runningExercise = null;
     this.exerciseChanged.next(null);
+    this.uiService.showSnackBar('Training Cancelled Successfully', 'Close', 4000)
+
   }
 
   getRunningExercise() {
@@ -89,7 +104,8 @@ export class TrainingService {
   }
 
 
-  cancelSubscriptions(){
-    this.fbSubs.forEach(sub=>sub.unsubscribe())
+  cancelSubscriptions() {
+    if(this.fbSubs)
+    this.fbSubs.forEach(sub => sub.unsubscribe())
   }
 }

@@ -10,3 +10,13 @@
 .card-width{
     width: 400px;
 }
+/* mat-spinner svg{
+    width: 10px !important;
+    height: 10px !important;
+ } */
+
+ .md-spinner-size svg{
+    width: 10px !important;
+    height: 10px !important;
+    margin: 5px 10px 0px 0px;
+  }

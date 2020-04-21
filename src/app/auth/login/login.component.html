@@ -40,8 +40,8 @@
 
 
 <section class="login-form col-5 offset-4">
-    <form   #f="ngForm" (ngSubmit)="onSubmit(f)">
-        <mat-card  class="card-width" >
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <mat-card class="card-width">
             <mat-card-title color="accent">Login</mat-card-title>
             <mat-card-content>
                 <mat-form-field class="col-8">
@@ -54,7 +54,7 @@
                     <mat-error *ngIf="emailInput.invalid && !emailInput.hasError('required')">
                         Email is invalid.
                     </mat-error>
-                </mat-form-field >
+                </mat-form-field>
                 <mat-form-field class="col-8">
                     <input type="password" matInput placeholder="YourPassword" name="password" ngModel minlength="6"
                         required #passwordInput="ngModel">
@@ -70,59 +70,19 @@
                 </mat-form-field>
             </mat-card-content>
             <mat-card-actions>
-                <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Login</button>
+                <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid"> Login <mat-icon
+                        *ngIf="isLoading">
+                        <mat-spinner color="accent" diameter="20">
+                        </mat-spinner>
+                    </mat-icon></button>
+                <div class="col-5 offset-4">
+
+                    <!-- <mat-spinner *ngIf="isLoading"></mat-spinner> -->
+                </div>
             </mat-card-actions>
+
+
         </mat-card>
     </form>
 </section>
-
-<!-- <ol>
-    <li>Add an email and password field (with Material Components of course)</li>
-    <li>Add validation (email => required and email, password => required)</li>
-    <li>Show errors and hints</li>
-    <li>Make form submittable and disable button if invalid</li>
-    <li>BONUS: Do all of that by using the reactive approach!</li>
-  </ol> -->
-<!--   
-<section class="login-form" fxLayout fxLayoutAlign="center ">
-
-    <form fxLayoutGap="10px" #f="ngForm" (ngSubmit)="onSubmit(f)"  >
-    <mat-card fxFlex.xs="100%" fxFlex="400px">
-        <mat-card-title color="accent">Login</mat-card-title>
-        <mat-card-content>
-                <mat-form-field >
-                    <input type="email" matInput placeholder="Your Email" name="email" ngModel email required
-                        #emailInput="ngModel">
-                    <mat-error *ngIf="emailInput.hasError('required')">
-                        Field must not be empty
-                    </mat-error>
-        
-                    <mat-error *ngIf="emailInput.invalid && !emailInput.hasError('required')">
-                        Email is invalid.
-                    </mat-error>
-        
-                </mat-form-field>
-        
-                <mat-form-field hint-lable="shold be at least 6 characters long" >
-                    <input type="password" matInput placeholder="YourPassword" name="password" ngModel minlength="6" required
-                        #passwordInput="ngModel">
-                    <mat-hint align="end"> {{passwordInput.value?.length}} /6</mat-hint>
-                    <mat-error *ngIf="passwordInput.value?.length < 6"> {{passwordInput.value?.length}} /6</mat-error>
-        
-                    <mat-error *ngIf="passwordInput.invalid && !passwordInput.hasError('required')">
-                        Password is invalid.
-                    </mat-error>
-                    <mat-error *ngIf="passwordInput.hasError('required')">
-                        Password must not be empty
-                    </mat-error>
-                </mat-form-field>
-                
-            </mat-card-content>
-            
-            <mat-card-actions>
-                <button type="submit"   mat-raised-button color="primary"
-                [disabled]="f.invalid">Login</button>
-            </mat-card-actions>
-        </mat-card>
-    </form>
-</section> -->
+ 

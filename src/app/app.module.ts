@@ -16,8 +16,7 @@ import { LocationStrategy, HashLocationStrategy, Location } from '@angular/commo
 import { HeaderComponent } from './navigation/header/header.component';
 import { SideNavListComponent } from './navigation/side-nav-list/side-nav-list.component';
  import { environment } from 'src/environments/environment';
- import { TrainingModule } from './training/training.module';
- 
+  
 
 @NgModule({
   declarations: [
@@ -37,8 +36,7 @@ import { SideNavListComponent } from './navigation/side-nav-list/side-nav-list.c
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AuthenticationModule,
-    TrainingModule,
-   ],
+    ],
   providers: [
     Location,
     { provide: LocationStrategy, useClass: HashLocationStrategy },

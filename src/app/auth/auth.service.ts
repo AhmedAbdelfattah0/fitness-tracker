@@ -31,7 +31,7 @@ export class AuthService {
       } else {
         this.traningService.cancelSubscriptions()
         this.authChange.next(false);
-        this.router.navigate(['login'])
+        this.router.navigate(['auth/login'])
         this.isAuthenticated = false;
       }
     })
@@ -44,7 +44,7 @@ export class AuthService {
       this.uiService.showSnackBar('You have successfully register', 'Close',4000)
 
       this.uiService.loadingStateChanged.next(false)
-      this.router.navigate(['login'])
+      this.router.navigate(['auth/login'])
 
     }).catch((error: Response) => {
       this.uiService.showSnackBar( error, 'Close',4000)

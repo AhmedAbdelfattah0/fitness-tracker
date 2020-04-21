@@ -5,6 +5,7 @@ import { Subject } from "rxjs";
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { TrainingService } from '../training/training.service';
+ import { UiService } from '../sheard/ui.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +15,8 @@ export class AuthService {
   constructor(
     private router: Router,
     private auth: AngularFireAuth,
-    private traningService: TrainingService
+    private traningService: TrainingService,
+     private uiService: UiService
 
   ) { }
 
@@ -35,29 +37,51 @@ export class AuthService {
     })
   }
   registerUser(authData: AuthData) {
-    this.auth.createUserWithEmailAndPassword(authData.email, authData.password)
+    this.uiService.loadingStateChanged.next(true)
+
+    this.auth.createUserWithEmailAndPassword(authData.email, authData.password).then(res => {
+  
+      this.uiService.showSnackBar('You have successfully register', 'Close',4000)
+
+      this.uiService.loadingStateChanged.next(false)
+      this.router.navigate(['login'])
+
+    }).catch((error: Response) => {
+      this.uiService.showSnackBar( error, 'Close',4000)
+
+      this.uiService.loadingStateChanged.next(false)
+
+    })
 
   }
 
   login(authData: AuthData) {
+    this.uiService.loadingStateChanged.next(true)
+    this.auth.signInWithEmailAndPassword(authData.email, authData.password).then(res => {
+ 
+      this.uiService.showSnackBar('You have successfully logged in', 'Close',4000)
+      
+      this.uiService.loadingStateChanged.next(false)
 
-    this.auth.signInWithEmailAndPassword(authData.email, authData.password)
+    }).catch((error) => {
+      this.uiService.showSnackBar(error, 'Close',4000)
+      this.uiService.loadingStateChanged.next(false)
+
+    })
+
 
   }
 
   logout() {
-    
-     this.auth.signOut()
+
+    this.auth.signOut()
 
   }
 
-  // getUser() {
-  //   return { ...this.user }
-  // }
 
   isAuth() {
     return this.isAuthenticated;
   }
 
- 
+
 }

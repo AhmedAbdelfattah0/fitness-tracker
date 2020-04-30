@@ -71,7 +71,7 @@
             </mat-card-content>
             <mat-card-actions>
                 <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid"> Login <mat-icon
-                        *ngIf="isLoading">
+                        *ngIf="(isLoading$ | async)">
                         <mat-spinner color="accent" diameter="20">
                         </mat-spinner>
                     </mat-icon></button>

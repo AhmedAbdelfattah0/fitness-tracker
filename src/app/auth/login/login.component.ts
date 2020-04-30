@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { UiService } from 'src/app/sheard/ui.service';
 import { Subscription, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Store } from "@ngrx/store";
 import * as formRoot from "../../app.reducer";
 @Component({

@@ -4,7 +4,9 @@ import { StopTrainingComponent } from './stop-training/stop-training.component';
 import { Exercise } from '../exercise.model';
 import { TrainingService } from '../training.service';
 import { Subscription } from 'rxjs';
-
+import { Store } from '@ngrx/store';
+import * as formTraining from '../training.reducer'
+import { take } from 'rxjs/operators';
 @Component({
   selector: 'app-current-training',
   templateUrl: './current-training.component.html',
@@ -18,7 +20,9 @@ export class CurrentTrainingComponent implements OnInit ,OnDestroy{
   dialogRefSubscription:Subscription
   constructor(
     private dialog: MatDialog,
-    private trainingService: TrainingService
+    private trainingService: TrainingService,
+    private store: Store<formTraining.State>
+
   ) { }
  
   ngOnInit(): void {
@@ -27,16 +31,21 @@ export class CurrentTrainingComponent implements OnInit ,OnDestroy{
   }
 
   startOrResumeTraining() {
-    const steps = this.trainingService.getRunningExercise().duration / 100 * 1000
 
-    this.timer = +(setInterval(() => {
-      this.progress = this.progress + 1;
+    this.store.select(formTraining.getActiveTraining).pipe(take(1)).subscribe(ex=>{
+      
+      const steps = ex.duration / 100 * 1000
 
-      if (this.progress == 100){
-        this.trainingService.completeExercise()
-        clearInterval(this.timer)
-      }
-    }, steps))
+      this.timer = +(setInterval(() => {
+        this.progress = this.progress + 1;
+  
+        if (this.progress == 100){
+          this.trainingService.completeExercise()
+          clearInterval(this.timer)
+        }
+      }, steps))
+    })
+  
   }
 
   onStop() {

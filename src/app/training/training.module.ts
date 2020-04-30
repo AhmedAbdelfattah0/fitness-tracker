@@ -7,6 +7,8 @@ import { StopTrainingComponent } from './current-training/stop-training/stop-tra
 import { FirestoreDatePipe } from './firestore-date.pipe';
 import { SheardModule } from '../sheard/sheard.module';
 import { TrainingRoutingModule } from './training-routing.module';
+import { StoreModule } from '@ngrx/store';
+import { trainingReducer } from './training.reducer';
 
 
 
@@ -22,7 +24,8 @@ import { TrainingRoutingModule } from './training-routing.module';
   ],
   imports: [
     TrainingRoutingModule,
-    SheardModule
+    SheardModule,
+    StoreModule.forFeature('training',trainingReducer)
   ],
   entryComponents: [StopTrainingComponent]
 

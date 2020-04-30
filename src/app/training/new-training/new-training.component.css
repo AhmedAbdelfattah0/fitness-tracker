@@ -1,4 +1,10 @@
 .new-training{
     text-align: center;
     padding: 30px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.card-width{
+    width: 100%;
 }

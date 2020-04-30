@@ -1,44 +1,43 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TrainingService } from '../training.service';
 import { Exercise } from '../exercise.model';
 import { NgForm } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { UiService } from 'src/app/sheard/ui.service';
-
+import { Subscription, Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as formTraining from '../training.reducer'
+import * as fromRoot from '../../app.reducer'
 
 @Component({
   selector: 'app-new-training',
   templateUrl: './new-training.component.html',
   styleUrls: ['./new-training.component.css']
 })
-export class NewTrainingComponent implements OnInit, OnDestroy {
-  exercises: Exercise[]
-  exercisesSubscription: Subscription
-  loadingSubscription: Subscription
-  isLoading: boolean = false
+export class NewTrainingComponent implements OnInit {
+  exercises$: Observable<Exercise[]>
+  isLoading$: Observable<boolean>
   constructor(
     private trainingService: TrainingService,
-    private uiService: UiService
+    private store: Store<formTraining.State>
+
 
 
   ) { }
 
   ngOnInit(): void {
-    this.exercisesSubscription = this.trainingService.exercisesChanged.subscribe((exercises) => (this.exercises = exercises))
-    this.trainingService.fitchAvailableExercises()
-    this.loadingSubscription = this.uiService.loadingStateChanged.subscribe(isLoading => {
-      this.isLoading = isLoading
-    })
+    this.exercises$ = this.store.select(formTraining.getAvailableExercises)
+
+    this.isLoading$ = this.store.select(fromRoot.getIsLoading)
+    this.fitchExercises()
   }
 
 
+  fitchExercises() {
+    this.trainingService.fitchAvailableExercises()
+  }
   onStartTraining(from: NgForm) {
 
     this.trainingService.startExercise(from.value.exercise)
-    // this.startTraining.emit()
-    // this.selectedTrainingId.emit(selectedTraining)
-
-  }
+}
 
   fitchAgin() {
     this.trainingService.fitchAvailableExercises()
@@ -46,16 +45,6 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
   }
 
 
-  ngOnDestroy(): void {
-    if (this.exercisesSubscription) {
-
-      this.exercisesSubscription.unsubscribe()
-    }
-    
-    if (this.loadingSubscription) {
-      this.loadingSubscription.unsubscribe
-    }
-  }
 
 
 }

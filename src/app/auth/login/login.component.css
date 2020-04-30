@@ -1,5 +1,7 @@
 .login-form{
-   padding: 30px;
+   padding-top: 30px;
+   padding-left: 18px;
+    padding-right: 18px;
    text-align: center;
 }
 .mat-card{
@@ -8,7 +10,7 @@
 }
 
 .card-width{
-    width: 400px;
+    width: 100%;
 }
 /* mat-spinner svg{
     width: 10px !important;

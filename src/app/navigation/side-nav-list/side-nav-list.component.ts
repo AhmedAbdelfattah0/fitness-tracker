@@ -1,22 +1,24 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
-import { Subscription } from 'rxjs';
+import {  Observable } from 'rxjs';
 
+import { Store } from "@ngrx/store";
+import * as formRoot from "../../app.reducer";
 @Component({
   selector: 'app-side-nav-list',
   templateUrl: './side-nav-list.component.html',
   styleUrls: ['./side-nav-list.component.css']
 })
-export class SideNavListComponent implements OnInit ,OnDestroy{
+export class SideNavListComponent implements OnInit {
   @Output('onCloseSidenav') onCloseSidenav = new EventEmitter<void>()
-  isAuth: boolean=false;
-  authSubscription:Subscription
-  constructor(private authService:AuthService) { }
+  isAuth$:Observable<boolean>;
+   constructor(private authService:AuthService,
+    private store: Store<formRoot.State>
+    
+    ) { }
 
   ngOnInit(): void {
-    this.authSubscription =  this.authService.authChange.subscribe(authStatus=>{
-      this.isAuth=authStatus;
-    });
+  this.isAuth$ =  this.store.select(formRoot.getIsAuth)
   }
   onClose() {
     this.onCloseSidenav.emit();
@@ -27,7 +29,5 @@ export class SideNavListComponent implements OnInit ,OnDestroy{
     this.authService.logout()
   }
 
-  ngOnDestroy(): void {
-    this.authSubscription.unsubscribe();
-  }
+  
 }

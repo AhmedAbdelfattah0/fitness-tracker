@@ -1,23 +1,23 @@
-<section class="new-training col-4 offset-4">
-    <form #f="ngForm" (ngSubmit)="onStartTraining(f)">
-        <mat-card>
+<section class="new-training row align-items-center">
+    <form class="col col-md-4 offset-md-4" #f="ngForm" (ngSubmit)="onStartTraining(f)">
+        <mat-card class="card-width">
             <mat-card-title>Time to start a workout!</mat-card-title>
             <mat-card-content>
-                <mat-form-field *ngIf="exercises && !isLoading">
+                <mat-form-field *ngIf="(exercises$ |async) && !(isLoading$ |async)">
                     <mat-select placeholder="Select Exercise" ngModel name="exercise" required>
-                        <mat-option *ngIf="isLoading">
+                        <mat-option *ngIf="isLoading$ | async">
                             <mat-icon>
                                 <mat-spinner color="accent" diameter="20">
                                 </mat-spinner>
                             </mat-icon>
                         </mat-option>
-                        <mat-option *ngFor="let exercise of exercises " [value]='exercise.id'>{{exercise.name}}
+                        <mat-option *ngFor="let exercise of exercises$ |async " [value]='exercise.id'>{{exercise.name}}
                         </mat-option>
 
                     </mat-select>
 
                 </mat-form-field>
-                <div class="col-4 offset-4" *ngIf="isLoading">
+                <div class="col-4 offset-4" *ngIf="isLoading$ |async">
 
                     <mat-spinner color="accent">
                     </mat-spinner>
@@ -26,19 +26,18 @@
             </mat-card-content>
 
             <mat-card-actions>
-                <button mat-raised-button color="primary" type="submit" *ngIf="exercises" [disabled]="f.invalid"> Start
+                <button mat-raised-button color="primary" type="submit" *ngIf="exercises$ |async"
+                    [disabled]="f.invalid"> Start
 
-                    <mat-icon *ngIf="isLoading">
-                        <mat-spinner color="accent" diameter="20">
-                        </mat-spinner>
-                    </mat-icon>
+                  
                 </button>
 
 
-                <button mat-raised-button color="warn" type="button" *ngIf="!exercises" (click)="fitchAgin()"> Fitch
+                <button mat-raised-button color="warn" type="button" *ngIf="!(exercises$ |async)" (click)="fitchAgin()">
+                    Fitch
                     Agin
 
-                    <mat-icon *ngIf="isLoading">
+                    <mat-icon *ngIf="isLoading$">
                         <mat-spinner color="accent" diameter="20">
                         </mat-spinner>
                     </mat-icon>

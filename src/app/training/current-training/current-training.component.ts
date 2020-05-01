@@ -33,7 +33,7 @@ export class CurrentTrainingComponent implements OnInit ,OnDestroy{
   startOrResumeTraining() {
 
     this.store.select(formTraining.getActiveTraining).pipe(take(1)).subscribe(ex=>{
-      
+      this.currentRunningTraining =ex;
       const steps = ex.duration / 100 * 1000
 
       this.timer = +(setInterval(() => {
@@ -67,6 +67,7 @@ export class CurrentTrainingComponent implements OnInit ,OnDestroy{
   }
 
   ngOnDestroy(): void {
+    if(this.dialogRefSubscription)
     this.dialogRefSubscription.unsubscribe()
   }
 

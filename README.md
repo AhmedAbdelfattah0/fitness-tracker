@@ -1,6 +1,7 @@
 # FitnessTracker
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1, and Firebase as realtime database and hosting
+the app is hosted in firebase with this link (https://fir-demo-d62f8.web.app/#/)
 
 ## Development server
 
